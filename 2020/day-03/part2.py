@@ -17,6 +17,7 @@ def get_answer(arr, x_offset, y_offset):
 
     return tree_count
 
+
 with open(sys.argv[1]) as f:
     data = [l.strip() for l in f if l.strip()]
     slopes = [(1, 1), (1, 3), (1, 5), (1, 7), (2, 1)]

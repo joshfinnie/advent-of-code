@@ -6,8 +6,9 @@ def get_values(arr):
     for i in arr:
         for j in arr:
             for z in arr:
-                if (i + j + z == sum):
+                if i + j + z == sum:
                     return i * j * z
+
 
 values = []
 with open(sys.argv[1]) as inputfile:

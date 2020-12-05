@@ -19,5 +19,6 @@ def get_answer(arr):
 
     return tree_count
 
+
 with open(sys.argv[1]) as f:
     print(get_answer([l.strip() for l in f if l.strip()]))

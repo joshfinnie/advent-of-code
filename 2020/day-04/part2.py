@@ -1,25 +1,27 @@
 import re
 import sys
 
+
 def test_id(id):
     id_split = [i.split(":") for i in id]
     id_dict = {k: v for k, v in id_split}
     if (
-        1920 <= int(id_dict['byr']) <= 2002 and
-        2010 <= int(id_dict['iyr']) <= 2020 and
-        2020 <= int(id_dict['eyr']) <= 2030 and
-        (m1 := re.match(r'^(\d+)(cm|in)$', id_dict['hgt'])) and
-        (
-            m1[2] == 'cm' and 150 <= int(m1[1]) <= 193 or
-            m1[2] == 'in' and 59 <= int(m1[1]) <= 76
-        ) and
-        re.match('^#[a-f0-9]{6}$', id_dict['hcl']) and
-        id_dict['ecl'] in set('amb blu brn gry grn hzl oth'.split()) and
-        re.match('^[0-9]{9}$', id_dict['pid'])
+        1920 <= int(id_dict["byr"]) <= 2002
+        and 2010 <= int(id_dict["iyr"]) <= 2020
+        and 2020 <= int(id_dict["eyr"]) <= 2030
+        and (m1 := re.match(r"^(\d+)(cm|in)$", id_dict["hgt"]))
+        and (
+            m1[2] == "cm"
+            and 150 <= int(m1[1]) <= 193
+            or m1[2] == "in"
+            and 59 <= int(m1[1]) <= 76
+        )
+        and re.match("^#[a-f0-9]{6}$", id_dict["hcl"])
+        and id_dict["ecl"] in set("amb blu brn gry grn hzl oth".split())
+        and re.match("^[0-9]{9}$", id_dict["pid"])
     ):
         return True
     return False
-
 
 
 def get_answers(arr):
@@ -50,9 +52,7 @@ def get_answers(arr):
                 if test_id(id):
                     valid_passports += 1
 
-
     return valid_passports
-
 
 
 with open(sys.argv[1]) as f:

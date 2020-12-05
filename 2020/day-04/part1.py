@@ -1,5 +1,6 @@
 import sys
 
+
 def get_answers(arr):
     must_include = [
         "byr",
@@ -26,9 +27,7 @@ def get_answers(arr):
             if valid:
                 valid_passports += 1
 
-
     return valid_passports
-
 
 
 with open(sys.argv[1]) as f:

@@ -8,7 +8,7 @@ def confirm_password(rule):
 
     letter_count = password.count(letter)
 
-    if (letter_count >= int(minimum) and letter_count <= int(maximum)):
+    if letter_count >= int(minimum) and letter_count <= int(maximum):
         return 1
     else:
         return 0
