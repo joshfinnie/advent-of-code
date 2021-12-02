@@ -1,5 +1,5 @@
 mod days;
-use days::day01;
+use days::{day01, day02};
 
 pub fn noop(_: String) {}
 
@@ -8,7 +8,7 @@ type DayFn = fn(String);
 pub fn get_day(day: u32) -> (DayFn, DayFn) {
     return match day {
         1 => (day01::part1, day01::part2),
-        2 => (noop, noop),
+        2 => (day02::part1, day02::part2),
         3 => (noop, noop),
         4 => (noop, noop),
         5 => (noop, noop),
