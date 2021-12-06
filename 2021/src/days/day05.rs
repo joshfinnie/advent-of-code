@@ -97,5 +97,5 @@ pub fn part2(input: String) {
         }
     });
 
-    println!("part1: {}", vents.into_values().filter(|&v| v > 1).count())
+    println!("part2: {}", vents.into_values().filter(|&v| v > 1).count())
 }
