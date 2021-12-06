@@ -13,7 +13,9 @@ fn main() {
         2 => day = args[1].clone(),
         _ => {
             println!("Enter day: ");
-            io::stdin().read_line(&mut day).expect("Failed to read line.");
+            io::stdin()
+                .read_line(&mut day)
+                .expect("Failed to read line.");
         }
     }
 
@@ -22,7 +24,7 @@ fn main() {
         Ok(num) => num,
         Err(_) => {
             println!("Invalid input for day: {}", day);
-            return
+            return;
         }
     };
 

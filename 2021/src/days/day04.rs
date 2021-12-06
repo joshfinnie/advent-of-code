@@ -1,5 +1,12 @@
 fn parse_numbers(input: &String) -> Vec<u8> {
-    input.trim().split('\n').nth(0).unwrap().split(',').map(|s| s.parse::<u8>().unwrap()).collect()
+    input
+        .trim()
+        .split('\n')
+        .nth(0)
+        .unwrap()
+        .split(',')
+        .map(|s| s.parse::<u8>().unwrap())
+        .collect()
 }
 
 #[derive(Debug)]
@@ -9,7 +16,7 @@ struct Board {
 }
 
 impl Board {
-    fn new(data: Vec<Vec<(u8, bool)>>) -> Board{
+    fn new(data: Vec<Vec<(u8, bool)>>) -> Board {
         Board {
             data,
             has_bingo: false,
@@ -49,7 +56,7 @@ impl Board {
         }
 
         for y in 0..5 {
-            for x in 0..5  {
+            for x in 0..5 {
                 if self.data[x][y].1 {
                     col += 1;
                 }
@@ -80,13 +87,23 @@ impl Board {
 }
 
 fn parse_boards(input: &String) -> Vec<Board> {
-    let data: Vec<&str> = input.trim().split('\n').filter(|s| !s.is_empty()).skip(1).collect();
+    let data: Vec<&str> = input
+        .trim()
+        .split('\n')
+        .filter(|s| !s.is_empty())
+        .skip(1)
+        .collect();
     let mut boards = vec![];
 
     for board in data.chunks(5) {
         let mut data: Vec<Vec<(u8, bool)>> = vec![];
         for row in board {
-            data.push(row.split_whitespace().map(|s| s.parse::<u8>().unwrap()).map(|s| (s, false)).collect());
+            data.push(
+                row.split_whitespace()
+                    .map(|s| s.parse::<u8>().unwrap())
+                    .map(|s| (s, false))
+                    .collect(),
+            );
         }
 
         boards.push(Board::new(data));
@@ -119,7 +136,6 @@ fn get_last_bingo(numbers: Vec<u8>, mut boards: Vec<Board>) -> u32 {
             }
         }
     }
-
 
     score
 }

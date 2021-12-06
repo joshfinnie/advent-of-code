@@ -1,5 +1,5 @@
 fn parse_input(input: &String) -> Vec<&str> {
-   input.trim().lines().collect()
+    input.trim().lines().collect()
 }
 
 pub fn part1(input: String) {
@@ -15,11 +15,10 @@ pub fn part1(input: String) {
         }
     }
 
-    let bits: String = nth_bit_num.map(|i| if i > length / 2 {
-        '1'
-    } else {
-        '0'
-    }).iter().collect();
+    let bits: String = nth_bit_num
+        .map(|i| if i > length / 2 { '1' } else { '0' })
+        .iter()
+        .collect();
 
     let gamma = u32::from_str_radix(&bits, 2).unwrap();
     let epsilon = !gamma & 0b0000111111111111;
@@ -46,20 +45,24 @@ fn get_rating(report: &Vec<&str>, most_common: bool) -> u32 {
             '0'
         };
 
-        left = left.iter().cloned().filter(|data| {
-            if most_common && bit == '1'{
-                '1' == data.chars().nth(i).unwrap()
-            } else if most_common && bit == '0' {
-                '0' == data.chars().nth(i).unwrap()
-            } else if !most_common && bit == '1' {
-                '0' == data.chars().nth(i).unwrap()
-            } else {
-                '1' == data.chars().nth(i).unwrap()
-            }
-        }).collect();
+        left = left
+            .iter()
+            .cloned()
+            .filter(|data| {
+                if most_common && bit == '1' {
+                    '1' == data.chars().nth(i).unwrap()
+                } else if most_common && bit == '0' {
+                    '0' == data.chars().nth(i).unwrap()
+                } else if !most_common && bit == '1' {
+                    '0' == data.chars().nth(i).unwrap()
+                } else {
+                    '1' == data.chars().nth(i).unwrap()
+                }
+            })
+            .collect();
 
         if left.iter().count() == 1 {
-            break
+            break;
         }
     }
 
