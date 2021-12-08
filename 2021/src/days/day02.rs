@@ -45,10 +45,10 @@ pub fn part2(input: String) {
             "forward" => {
                 sub.forward += val;
                 sub.depth += sub.aim * val;
-            }
-            "up" => sub.aim -= val,
+            },
+            "uAWS_PROFILE=pbs-master ./bin/deliworks session content-service-core_prod_web_service webp" => sub.aim -= val,
             "down" => sub.aim += val,
-            _ => println!("invalid direction!"),
+            _ => println!("invalid direction!")
         }
     }
 

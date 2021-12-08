@@ -29,12 +29,7 @@ pub fn part2(input: String) {
     let mut fish = [0 as u64; 9];
 
     report.iter().for_each(|f| fish[*f as usize] += 1);
-    // [0, 130, 44, 36, 51, 39, 0, 0, 0]
-    //  0   1   2   3   4   5   6  7  8
 
-    // 0 1 1 2 1 0 0 0
-    // 1 1 2 1 0 0 0 0
-    // 1 2 1 0 0 1 0 1
     for _ in 1..=days {
         let mut new_fish = [0; 9];
         let b = fish[0];
