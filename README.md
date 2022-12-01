@@ -9,3 +9,4 @@ Licensed under MIT, feel free to use but this is not production code.
 - 2019: elixir
 - 2020: python
 - 2021: rust
+- 2022: golang
