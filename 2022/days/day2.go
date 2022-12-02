@@ -1,8 +1,8 @@
 package days
 
 import (
-	"strings"
 	"strconv"
+	"strings"
 )
 
 /*
@@ -69,7 +69,7 @@ func calcScore2(opp string, me string) int {
 		* A -> Rock    3
 		* B -> Paper   1
 		* C -> Scissor 2
-		*/
+		 */
 		switch opp {
 		case "A":
 			return LOSE + 3
@@ -97,7 +97,7 @@ func calcScore2(opp string, me string) int {
 		* A -> Rock    2
 		* B -> Paper   3
 		* C -> Scissor 1
-		*/
+		 */
 		switch opp {
 		case "A":
 			return WIN + 2
@@ -110,7 +110,6 @@ func calcScore2(opp string, me string) int {
 		}
 	}
 }
-
 
 func Day02Part1(input string) string {
 	input = strings.TrimSuffix(input, "\n")

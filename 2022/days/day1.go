@@ -3,8 +3,8 @@ package days
 import (
 	"math"
 	"sort"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 func parse(input string) []int {
