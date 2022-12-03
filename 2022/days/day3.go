@@ -21,14 +21,14 @@ func Day03Part1(input string) string {
 	for _, part := range parts {
 		var dups rune
 		l := len(part)
-		s1 := part[0:l/2]
-		s2 := part[l/2:l]
+		s1 := part[0 : l/2]
+		s2 := part[l/2 : l]
 		for _, char := range s1 {
 			if strings.Contains(s2, string(char)) {
 				dups = char
 			}
 		}
-		
+
 		count = count + calcVal(dups)
 	}
 	return strconv.Itoa(count)
@@ -42,8 +42,8 @@ func Day03Part2(input string) string {
 	count := 0
 	for min < max {
 		s1 := parts[min]
-		s2 := parts[min + 1]
-		s3 := parts[min + 2]
+		s2 := parts[min+1]
+		s3 := parts[min+2]
 		var dups rune
 		for _, char := range s1 {
 			if strings.Contains(s2, string(char)) {
