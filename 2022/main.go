@@ -40,6 +40,11 @@ func getDay(day string, part2 bool) func(string) string {
 			return days.Day05Part2
 		}
 		return days.Day05Part1
+	case "06":
+		if part2 {
+			return days.Day06Part2
+		}
+		return days.Day06Part1
 	// This is the default so that something happens no matter what
 	default:
 		return notAvailable
