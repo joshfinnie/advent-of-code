@@ -45,6 +45,11 @@ func getDay(day string, part2 bool) func(string) string {
 			return days.Day06Part2
 		}
 		return days.Day06Part1
+	case "07":
+		if part2 {
+			return days.Day07Part2
+		}
+		return days.Day07Part1
 	// This is the default so that something happens no matter what
 	default:
 		return notAvailable
