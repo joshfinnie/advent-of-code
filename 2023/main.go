@@ -14,23 +14,35 @@ func notAvailable(_ io.Reader) string {
 	return "This day is not done yet..."
 }
 
+type dayFunc func(io.Reader) string
+
+var dayFunctions = map[string]struct {
+	part1 dayFunc
+	part2 dayFunc
+}{
+	"01": {days.Day01A, days.Day01B},
+	"02": {days.Day02A, days.Day02B},
+}
+
 // getDay returns the function corresponding to the specified day and part2 flag.
-func getDay(day string, part2 bool) func(io.Reader) string {
-	switch day {
-	// This is where you add your next day's code
-	case "01":
+func getDay(day string, part2 bool) dayFunc {
+	if functions, ok := dayFunctions[day]; ok {
 		if part2 {
-			return days.Day01B
+			return functions.part2
 		}
-		return days.Day01A
-	default:
-		return notAvailable
+		return functions.part1
 	}
+	return notAvailable
 }
 
 // getInput returns an IO Reader file or an error.
-func getInput(day string) (io.Reader, error) {
-	filename := fmt.Sprintf("inputs/day%s.txt", day)
+func getInput(day string, test bool) (io.Reader, error) {
+	var filename string
+	if test {
+		filename = fmt.Sprintf("inputs/day%s_test.txt", day)
+	} else {
+		filename = fmt.Sprintf("inputs/day%s.txt", day)
+	}
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, fmt.Errorf("error reading input for day %s: %v", day, err)
@@ -43,11 +55,13 @@ func main() {
 		helpFlag  bool
 		dayFlag   string
 		part2Flag bool
+		testFlag  bool
 	)
 
 	flag.BoolVar(&helpFlag, "help", false, "Show help")
 	flag.StringVar(&dayFlag, "day", "00", "Which day to run.")
 	flag.BoolVar(&part2Flag, "part2", false, "Run part 2.")
+	flag.BoolVar(&testFlag, "test", false, "Use test input")
 
 	flag.Parse()
 
@@ -56,7 +70,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	reader, err := getInput(dayFlag)
+	reader, err := getInput(dayFlag, testFlag)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
