@@ -2,7 +2,6 @@ package days
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"strconv"
 )
@@ -13,7 +12,7 @@ type pos struct {
 }
 
 type num struct {
-	val int
+	val  int
 	size int
 }
 
@@ -24,7 +23,7 @@ type grid struct {
 
 func parse(file io.Reader) grid {
 	scanner := bufio.NewScanner(file)
-	g := grid {
+	g := grid{
 		nums: make(map[pos]num),
 		symb: make(map[pos]rune),
 	}
@@ -37,12 +36,12 @@ func parse(file io.Reader) grid {
 		for y, r := range line {
 			switch r {
 			case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9':
-				n = n * 10 + int(r - '0')
+				n = n*10 + int(r-'0')
 				numSize++
 			default:
-				g.symb[pos{x: x, y: y-1}] = r
+				g.symb[pos{x: x, y: y}] = r
 				if numSize > 0 {
-					g.nums[pos{x: x, y: y-1}] = num{val: n, size: numSize}
+					g.nums[pos{x: x, y: y - 1}] = num{val: n, size: numSize}
 					n = 0
 					numSize = 0
 				}
@@ -59,25 +58,39 @@ func parse(file io.Reader) grid {
 	return g
 }
 
-var adjPoints [][]int = [][]int{
-	{-1, 0},  // Going up
-	{1, 0},   // Going down
-	{0, -1},  // Going left
-	{0, 1},   // Going right
-	{-1, -1}, // Top Left
-	{-1, 1},  // Top Right
-	{1, -1},  // Bottom Left
-	{1, 1},   // Bottom Right
-}
-
-func hasNeigbor(g grid, p pos) bool {
-	fmt.Println(p)
-	for _, pt := range adjPoints {
-		if r, ok := g.symb[pos{x: p.x + pt[0], y: p.y + pt[1]}]; ok && r != '.' {
+func hasNeigbor(g grid, p pos, n num) bool {
+	// test above and below num
+	for i := 0; i < n.size; i++ {
+		if r, ok := g.symb[pos{x: p.x - 1, y: p.y - i}]; ok && r != '.' {
+			return true
+		}
+		if r, ok := g.symb[pos{x: p.x + 1, y: p.y - i}]; ok && r != '.' {
 			return true
 		}
 	}
-	// Check up
+
+	// test ends
+	if r, ok := g.symb[pos{x: p.x, y: p.y + 1}]; ok && r != '.' {
+		return true
+	}
+	if r, ok := g.symb[pos{x: p.x, y: p.y - n.size}]; ok && r != '.' {
+		return true
+	}
+
+	// check corners
+	if r, ok := g.symb[pos{x: p.x + 1, y: p.y + 1}]; ok && r != '.' {
+		return true
+	}
+	if r, ok := g.symb[pos{x: p.x - 1, y: p.y + 1}]; ok && r != '.' {
+		return true
+	}
+	if r, ok := g.symb[pos{x: p.x + 1, y: p.y - n.size}]; ok && r != '.' {
+		return true
+	}
+	if r, ok := g.symb[pos{x: p.x - 1, y: p.y - n.size}]; ok && r != '.' {
+		return true
+	}
+
 	return false
 }
 
@@ -85,7 +98,7 @@ func Day03A(file io.Reader) string {
 	sum := 0
 	g := parse(file)
 	for p, n := range g.nums {
-		if hasNeigbor(g, p) {
+		if hasNeigbor(g, p, n) {
 			sum += n.val
 		}
 	}
@@ -93,6 +106,29 @@ func Day03A(file io.Reader) string {
 	return strconv.Itoa(sum)
 }
 
+func getNumNeigbors(g grid, p pos) []num {
+	numNeigbors := []num{}
+	for pCur, nCur := range g.nums {
+		if p.x >= pCur.x-1 && p.x <= pCur.x+1 && p.y >= pCur.y-nCur.size && p.y <= pCur.y+1 {
+			numNeigbors = append(numNeigbors, nCur)
+		}
+	}
+	return numNeigbors
+
+}
+
 func Day03B(file io.Reader) string {
-	return "TODO"
+	sum := 0
+	g := parse(file)
+	for p, s := range g.symb {
+		if s == '*' {
+			numNeigbors := getNumNeigbors(g, p)
+			if len(numNeigbors) == 2 {
+				ratio := numNeigbors[0].val * numNeigbors[1].val
+				sum += ratio
+			}
+		}
+	}
+
+	return strconv.Itoa(sum)
 }
