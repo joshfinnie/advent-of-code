@@ -9,11 +9,6 @@ import (
 	"github.com/joshfinnie/advent-of-code/2023/days"
 )
 
-// notAvailable returns a message indicating that the day is not available.
-func notAvailable(_ io.Reader) string {
-	return "This day is not done yet..."
-}
-
 type dayFunc func(io.Reader) string
 
 var dayFunctions = map[string]struct {
@@ -22,6 +17,7 @@ var dayFunctions = map[string]struct {
 }{
 	"01": {days.Day01A, days.Day01B},
 	"02": {days.Day02A, days.Day02B},
+	"03": {days.Day03A, days.Day03B},
 }
 
 // getDay returns the function corresponding to the specified day and part2 flag.
@@ -32,7 +28,8 @@ func getDay(day string, part2 bool) dayFunc {
 		}
 		return functions.part1
 	}
-	return notAvailable
+
+	return nil
 }
 
 // getInput returns an IO Reader file or an error.
