@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strconv"
 	"unicode"
-	"regexp"
 )
 
 func extractValues(line string) int {
