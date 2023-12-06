@@ -1,6 +1,8 @@
 package utils
 
-import "strconv"
+import (
+	"strconv"
+)
 
 func ConvertStringToInt(s string) int {
 	result, err := strconv.Atoi(s)
@@ -13,9 +15,18 @@ func ConvertStringToInt(s string) int {
 
 func IntInSlice(i int, s []int) bool {
 	for _, a := range s {
-        if a == i {
-            return true
-        }
-    }
-    return false
+		if a == i {
+			return true
+		}
+	}
+	return false
+}
+
+func ParseIntArray(values []string) []int {
+	var result []int
+	for _, val := range values {
+		num := ConvertStringToInt(val)
+		result = append(result, num)
+	}
+	return result
 }

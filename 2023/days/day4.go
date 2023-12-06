@@ -3,6 +3,7 @@ package days
 import (
 	"bufio"
 	"io"
+	"math"
 	"strconv"
 	"strings"
 
@@ -54,35 +55,13 @@ func parseCard(card string, vals []int) int {
 }
 
 func Day04A(file io.Reader) string {
-	answer := 0
+	answer := 0.0
 	cards, values := parseFile(file)
 	for i, card := range cards {
-		switch parseCard(card, values[i]) {
-		case 1:
-			answer += 1
-		case 2:
-			answer += 2
-		case 3:
-			answer += 4
-		case 4:
-			answer += 8
-		case 5:
-			answer += 16
-		case 6:
-			answer += 32
-		case 7:
-			answer += 64
-		case 8:
-			answer += 128
-		case 9:
-			answer += 256
-		case 10:
-			answer += 512
-		default:
-			answer += 0
-		}
+		p := parseCard(card, values[i])
+		answer += math.Exp2(float64(p))
 	}
-	return strconv.Itoa(answer)
+	return strconv.Itoa(int(answer))
 }
 
 func Day04B(file io.Reader) string {
