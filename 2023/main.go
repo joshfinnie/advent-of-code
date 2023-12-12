@@ -22,6 +22,7 @@ var dayFunctions = map[string]struct {
 	"05": {days.Day05A, days.Day05B},
 	"06": {days.Day06A, days.Day06B},
 	"07": {days.Day07A, days.Day07B},
+	"08": {days.Day08A, days.Day08B},
 }
 
 // getDay returns the function corresponding to the specified day and part2 flag.
